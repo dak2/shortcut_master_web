@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: shortcut-master-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+    tty: true
+    ports:
+      - 8000:8000
