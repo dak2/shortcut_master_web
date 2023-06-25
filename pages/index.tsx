@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import GoogleLoginButton from './components/GoogleLoginButton'
 
 export default function Home() {
   return (
@@ -34,6 +35,8 @@ export default function Home() {
             <p>実際の使い方を見てみる</p>
           </a>
         </div>
+
+        <GoogleLoginButton />
       </main>
 
       <footer className={styles.footer}>
