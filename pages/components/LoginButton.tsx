@@ -1,13 +1,13 @@
 import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginButton() {
-  const login = useGoogleLogin({
+  const useLogin = useGoogleLogin({
     flow: "auth-code",
-    onSuccess: (codeResponse) => sendToken(codeResponse.code),
-    onError: (errorResponse) => console.log(errorResponse),
+    onSuccess: (codeResponse) => login(codeResponse.code),
+    onError: (errorResponse) => { throw new Error(`Failed to login: ${errorResponse}. Please check your credentials and try again`) },
   });
 
-  const sendToken = async (code: string) => {
+  const login = async (code: string) => {
     const login_url = process.env.NEXT_PUBLIC_API_URL + "/login";
     try {
       const response = await fetch(login_url, {
@@ -19,11 +19,15 @@ export default function LoginButton() {
         },
         body: JSON.stringify({ code: btoa(code) }),
       });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok. Please check your credentials and try again");
+      }
       console.log(await response.json());
     } catch (error) {
-      console.error(error);
+      throw new Error(`Failed to login: ${error}. Please check your credentials and try again`);
     }
   };
 
-  return <button onClick={() => login()}>Login with Google</button>;
+  return <button onClick={() => useLogin()}>Login with Google</button>;
 }
