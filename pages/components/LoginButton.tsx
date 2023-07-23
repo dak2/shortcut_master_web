@@ -1,10 +1,10 @@
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginButton() {
   const login = useGoogleLogin({
-    flow: 'auth-code',
-    onSuccess: async (codeResponse) => sendToken(codeResponse.code),
-    onError: errorResponse => console.log(errorResponse),
+    flow: "auth-code",
+    onSuccess: (codeResponse) => sendToken(codeResponse.code),
+    onError: (errorResponse) => console.log(errorResponse),
   });
 
   const sendToken = async (code: string) => {
@@ -13,7 +13,7 @@ export default function LoginButton() {
       const response = await fetch(login_url, {
         method: "POST",
         mode: "cors",
-        credentials: "same-origin",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -25,9 +25,5 @@ export default function LoginButton() {
     }
   };
 
-  return (
-    <button onClick={() => login()}>
-      Login with Google
-    </button>
-  );
+  return <button onClick={() => login()}>Login with Google</button>;
 }
