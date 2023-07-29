@@ -1,10 +1,20 @@
+import { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
+import { User, UserContext } from "../userProvider";
+import { useRouter } from "next/router";
 
 export default function LoginButton() {
+  const { setUser } = useContext(UserContext);
+  const router = useRouter();
+
   const useLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: (codeResponse) => login(codeResponse.code),
-    onError: (errorResponse) => { throw new Error(`Failed to login: ${errorResponse}. Please check your credentials and try again`) },
+    onError: (errorResponse) => {
+      throw new Error(
+        `Failed to login: ${errorResponse}. Please check your credentials and try again`
+      );
+    },
   });
 
   const login = async (code: string) => {
@@ -20,12 +30,23 @@ export default function LoginButton() {
         body: JSON.stringify({ code: btoa(code) }),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok. Please check your credentials and try again");
+      if (response.ok) {
+        const data = await response.json();
+        const user: User = {
+          name: data,
+        };
+        setUser(user);
+        localStorage.setItem("user", user.name ?? "");
+        router.push("/home");
+      } else {
+        throw new Error(
+          "Network response was not ok. Please check your credentials and try again"
+        );
       }
-      console.log(await response.json());
     } catch (error) {
-      throw new Error(`Failed to login: ${error}. Please check your credentials and try again`);
+      throw new Error(
+        `Failed to login: ${error}. Please check your credentials and try again`
+      );
     }
   };
 
