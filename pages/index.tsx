@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import GoogleLogin from './components/google-login'
 
-export default function Home() {
+export default function GuestHome() {
   return (
     <div className={styles.container}>
       <Head>
