@@ -37,7 +37,7 @@ export default function LoginButton() {
         };
         setUser(user);
         localStorage.setItem("user", user.name ?? "");
-        router.push("/home");
+        router.push("/user-home");
       } else {
         throw new Error(
           "Network response was not ok. Please check your credentials and try again"
