@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { User, UserContext } from "../userProvider";
+import { User, UserContext } from "../user-provider";
 import { useRouter } from "next/router";
 
 export default function LoginButton() {
@@ -37,7 +37,7 @@ export default function LoginButton() {
         };
         setUser(user);
         localStorage.setItem("user", user.name ?? "");
-        router.push("/home");
+        router.push("/user-home");
       } else {
         throw new Error(
           "Network response was not ok. Please check your credentials and try again"
