@@ -20,7 +20,7 @@ export default function LogoutButton() {
 
       if (response.ok) {
         setUser(null);
-        localStorage.removeItem("user");
+        localStorage.removeItem("user_name");
         router.push("/");
       } else {
         throw new Error(

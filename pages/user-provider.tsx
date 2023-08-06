@@ -22,9 +22,9 @@ function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(defaultUserContext.user);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser({ name: savedUser });
+    const userName = localStorage.getItem('user_name');
+    if (userName) {
+      setUser({ name: userName });
     }
   }, []);
 
