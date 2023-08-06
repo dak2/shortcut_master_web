@@ -36,7 +36,7 @@ export default function LoginButton() {
           name: data,
         };
         setUser(user);
-        localStorage.setItem("user", user.name ?? "");
+        localStorage.setItem("user_name", user.name ?? "");
         router.push("/user-home");
       } else {
         throw new Error(
