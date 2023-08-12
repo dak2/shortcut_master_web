@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import GoogleLogin from './components/google-login'
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import GoogleLoginProvider from "../providers/GoogleLoginProvider";
 
-export default function GuestHome() {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,13 +13,9 @@ export default function GuestHome() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          shortcut master
-        </h1>
+        <h1 className={styles.title}>shortcut master</h1>
 
-        <p className={styles.description}>
-          ショートカットをマスターしよう
-        </p>
+        <p className={styles.description}>ショートカットをマスターしよう</p>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -36,7 +32,7 @@ export default function GuestHome() {
           </a>
         </div>
 
-        <GoogleLogin />
+        <GoogleLoginProvider />
       </main>
 
       <footer className={styles.footer}>
@@ -52,5 +48,5 @@ export default function GuestHome() {
         </a>
       </footer>
     </div>
-  )
+  );
 }

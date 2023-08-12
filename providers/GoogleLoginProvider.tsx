@@ -1,7 +1,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import LoginButton from "./login-button";
+import LoginButton from "../components/elements/button/LoginButton";
 
-export default function GoogleLogin() {
+export default function GoogleLoginProvider() {
   return (
     <GoogleOAuthProvider
       clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ""}
