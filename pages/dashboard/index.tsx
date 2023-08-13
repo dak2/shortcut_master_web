@@ -1,17 +1,15 @@
 import { useState, useContext, useEffect } from "react";
-import { User, UserContext } from "providers/UserProvider";
+import { UserContext } from "providers/UserProvider";
 import LogoutButton from "components/elements/button/LogoutButton";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { getCurrentUser } from "lib/auth";
 
-export default function UserHome() {
+// entry point of dashboard
+export default function Dashboard() {
   const { user } = useContext(UserContext);
   const router = useRouter();
-  // ref. https://stackoverflow.com/a/73853147
-  const localStorage =
-    typeof window !== "undefined" ? window.localStorage : undefined;
-  const userName =
-    user && user.name ? user.name : localStorage?.getItem("user_name");
-  const currentUser: User = userName ? { name: userName } : { name: null };
+  const currentUser = getCurrentUser(user);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +28,7 @@ export default function UserHome() {
         ? `Hello ${currentUser.name ?? ""}`
         : "You are not logged in"}
       <LogoutButton />
+      <Link href="/quizzes">クイズを選ぶ</Link>
     </div>
   );
 }
