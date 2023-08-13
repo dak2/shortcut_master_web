@@ -1,5 +1,5 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import LoginButton from "../components/elements/button/LoginButton";
+import LoginButton from "components/elements/button/LoginButton";
 
 export default function GoogleLoginProvider() {
   return (

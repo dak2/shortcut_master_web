@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-import { User, UserContext } from "../../providers/UserProvider";
-import LogoutButton from "../../components/elements/button/LogoutButton";
+import { User, UserContext } from "providers/UserProvider";
+import LogoutButton from "components/elements/button/LogoutButton";
 import { useRouter } from "next/router";
 
 export default function UserHome() {
