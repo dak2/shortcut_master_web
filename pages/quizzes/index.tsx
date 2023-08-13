@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from "providers/UserProvider";
 import { useRouter } from "next/router";
+import { useState, useContext, useEffect } from "react";
 import { getCurrentUser } from "lib/auth";
+import { UserContext } from "providers/UserProvider";
 
 // entry point of quizzes
 export default function Quizzes() {
