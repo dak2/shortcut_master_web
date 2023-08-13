@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { User, UserContext } from "../../../pages/user-provider";
+import { User, UserContext } from "../../../providers/UserProvider";
 import { useRouter } from "next/router";
 
 export default function LoginButton() {

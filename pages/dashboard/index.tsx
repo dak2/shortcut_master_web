@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { User, UserContext } from "../user-provider";
+import { User, UserContext } from "../../providers/UserProvider";
 import LogoutButton from "../../components/elements/button/LogoutButton";
 import { useRouter } from "next/router";
 
