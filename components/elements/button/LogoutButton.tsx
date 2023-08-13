@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { UserContext } from "../user-provider";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "providers/UserProvider";
 
 export default function LogoutButton() {
   const { setUser } = useContext(UserContext);

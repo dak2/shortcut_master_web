@@ -1,7 +1,7 @@
-import { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { User, UserContext } from "../user-provider";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { User, UserContext } from "providers/UserProvider";
 
 export default function LoginButton() {
   const { setUser } = useContext(UserContext);
@@ -37,7 +37,7 @@ export default function LoginButton() {
         };
         setUser(user);
         localStorage.setItem("user_name", user.name ?? "");
-        router.push("/user-home");
+        router.push("/dashboard");
       } else {
         throw new Error(
           "Network response was not ok. Please check your credentials and try again"
@@ -50,5 +50,5 @@ export default function LoginButton() {
     }
   };
 
-  return <button onClick={() => useLogin()}>Login with Google</button>;
+  return <button onClick={useLogin}>Login with Google</button>;
 }
