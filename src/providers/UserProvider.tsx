@@ -1,19 +1,20 @@
+'use client';
 import React, { createContext, useState, SetStateAction, Dispatch, useEffect } from 'react';
 
 export type User = {
   name: string | null;
-}
+};
 
 type UserContextType = {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
-}
+};
 
 const defaultUserContext = {
   user: {
     name: null,
   },
-  setUser: () => {}
+  setUser: () => {},
 };
 
 const UserContext = createContext<UserContextType>(defaultUserContext);
@@ -28,11 +29,7 @@ function UserProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 }
 
 export { UserContext, UserProvider };

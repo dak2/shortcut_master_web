@@ -1,7 +1,8 @@
-import { useRouter } from "next/router";
-import { useState, useContext, useEffect } from "react";
-import { getCurrentUser } from "lib/auth";
-import { UserContext } from "providers/UserProvider";
+'use client';
+import { getCurrentUser } from 'lib/auth';
+import { useRouter } from 'next/navigation';
+import { UserContext } from 'providers/UserProvider';
+import { useState, useContext, useEffect } from 'react';
 
 // entry point of quizzes
 export default function Quizzes() {
@@ -12,7 +13,7 @@ export default function Quizzes() {
 
   useEffect(() => {
     if (!currentUser.name) {
-      router.push("/");
+      router.push('/');
     } else {
       setLoading(false);
     }
