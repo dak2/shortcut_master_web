@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState, useContext, useEffect } from 'react';
+'use client';
 import LogoutButton from 'components/elements/button/LogoutButton';
 import { getCurrentUser } from 'lib/auth';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { UserContext } from 'providers/UserProvider';
+import { useState, useContext, useEffect } from 'react';
 
 // entry point of dashboard
 export default function Dashboard() {
