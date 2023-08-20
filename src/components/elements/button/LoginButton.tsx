@@ -1,8 +1,8 @@
 'use client';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
-import { User, UserContext } from 'providers/UserProvider';
 import { useContext } from 'react';
+import { User, UserContext } from 'providers/UserProvider';
 
 export default function LoginButton() {
   const { setUser } = useContext(UserContext);
