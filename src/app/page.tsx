@@ -1,4 +1,4 @@
-import GoogleLoginProvider from 'providers/GoogleLoginProvider';
+import GoogleLoginProvider from 'app/providers/GoogleLoginProvider';
 import styles from 'styles/Home.module.css';
 
 export default function Home() {

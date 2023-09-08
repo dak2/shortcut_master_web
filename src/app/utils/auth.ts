@@ -1,4 +1,4 @@
-import { User } from 'providers/UserProvider';
+import { User } from 'app/providers/UserProvider';
 
 export const getCurrentUser = (contextUser: User | null): User => {
   // ref. https://stackoverflow.com/a/73853147

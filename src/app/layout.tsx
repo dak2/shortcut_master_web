@@ -1,5 +1,5 @@
 'use client';
-import { UserProvider } from 'providers/UserProvider';
+import { UserProvider } from 'app/providers/UserProvider';
 
 import 'styles/globals.css';
 

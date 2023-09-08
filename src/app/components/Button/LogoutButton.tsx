@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
-import { UserContext } from 'providers/UserProvider';
+import { UserContext } from 'app/providers/UserProvider';
 
 export default function LogoutButton() {
   const { setUser } = useContext(UserContext);
