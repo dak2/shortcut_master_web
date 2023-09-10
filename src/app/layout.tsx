@@ -1,6 +1,6 @@
 'use client';
+import { ChakraProviders } from 'app/providers/ChakraProvider';
 import { UserProvider } from 'app/providers/UserProvider';
-
 import 'styles/globals.css';
 
 export default function RootLayout({
@@ -13,7 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <UserProvider>{children}</UserProvider>
+        <ChakraProviders>
+          <UserProvider>{children}</UserProvider>
+        </ChakraProviders>
       </body>
     </html>
   );
