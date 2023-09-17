@@ -3,6 +3,7 @@ import { Button } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
+import { ImGoogle } from 'react-icons/im';
 import { User, UserContext } from 'app/providers/UserProvider';
 
 export default function LoginButton() {
@@ -47,8 +48,8 @@ export default function LoginButton() {
   };
 
   return (
-    <Button colorScheme="teal" size="md" onClick={useLogin}>
-      Login with Google x
+    <Button colorScheme="teal" size="md" onClick={useLogin} leftIcon={<ImGoogle />}>
+      Login with Google
     </Button>
   );
 }
