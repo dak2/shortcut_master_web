@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@chakra-ui/react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
@@ -45,5 +46,9 @@ export default function LoginButton() {
     }
   };
 
-  return <button onClick={useLogin}>Login with Google</button>;
+  return (
+    <Button colorScheme="teal" size="md" onClick={useLogin}>
+      Login with Google x
+    </Button>
+  );
 }

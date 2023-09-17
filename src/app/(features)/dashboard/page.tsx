@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useContext, useEffect } from 'react';
-import LogoutButton from 'app/components/button/LogoutButton';
+import LogoutButton from 'app/components/Button/LogoutButton';
 import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
 
