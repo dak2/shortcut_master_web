@@ -11,7 +11,6 @@ export default function Quizzes() {
   const router = useRouter();
   const currentUser = getCurrentUser(user);
   const [quizzes, setQuizzes] = useState<Quiz[]>();
-  const [loading, setLoading] = useState<boolean>(true);
 
   const handleUserRedirect = () => {
     if (!currentUser.name) router.push('/');
@@ -29,7 +28,6 @@ export default function Quizzes() {
 
   useEffect(() => {
     handleUserRedirect();
-    setLoading(true);
     void (async () => {
       try {
         const response = await fetchQuizzes();
@@ -43,8 +41,7 @@ export default function Quizzes() {
         throw new Error(`Failed to login: ${error}. Please check your credentials and try again`);
       }
     })();
-    setLoading(false);
   }, []);
 
-  return loading ? <div>Loading...</div> : <div>{quizzes?.map((q) => q.name)}</div>;
+  return <div>{quizzes?.map((q) => q.name)}</div>;
 }

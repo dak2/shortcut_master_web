@@ -1,30 +1,14 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useState, useContext, useEffect } from 'react';
+import { Suspense } from 'react';
 import Quizzes from 'app/(features)/(quiz)/quizzes/quizzes';
-import { UserContext } from 'app/providers/UserProvider';
-import { getCurrentUser } from 'app/utils/auth';
 
 // entry point of quizzes
-export default function Page() {
-  const { user } = useContext(UserContext);
-  const router = useRouter();
-  const currentUser = getCurrentUser(user);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!currentUser.name) {
-      router.push('/');
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  return loading ? (
-    <div>Loading...</div>
-  ) : (
+export default async function Page() {
+  return (
     <div>
-      <Quizzes />
+      <h2>クイズ一覧</h2>
+      <Suspense fallback={<p>Loading Quizzes...</p>}>
+        <Quizzes />
+      </Suspense>
     </div>
   );
 }
