@@ -48,7 +48,6 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
-    'import/no-unresolved': 'off',
     'no-restricted-imports': [
       'error',
       {
@@ -58,6 +57,14 @@ module.exports = {
             message: "Don't use relative parent paths on import, use absolute paths instead.",
           },
         ],
+      },
+    ],
+    overrides: [
+      {
+        files: ['../../styled-system/*'],
+        rules: {
+          'no-restricted-imports': 'off',
+        },
       },
     ],
   },
