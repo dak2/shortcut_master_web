@@ -1,21 +1,22 @@
 import GoogleLoginProvider from 'app/providers/GoogleLoginProvider';
-import styles from 'styles/Home.module.css';
+import { css } from '../../styled-system/css';
+import { containerCss, mainCss, titleCss, descriptionCss, gridCss, cardCss } from 'styles/HomeStyle';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>shortcut master</h1>
+    <div className={containerCss}>
+      <main className={mainCss}>
+        <h1 className={titleCss}>shortcut master</h1>
 
-        <p className={styles.description}>ショートカットをマスターしよう</p>
+        <p className={descriptionCss}>ショートカットをマスターしよう</p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+        <div className={gridCss}>
+          <a href="https://nextjs.org/docs" className={cardCss}>
             <h2>Shortcut master ? &rarr;</h2>
             <p>このアプリについての説明</p>
           </a>
 
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
+          <a href="https://github.com/vercel/next.js/tree/master/examples" className={cardCss}>
             <h2>Examples &rarr;</h2>
             <p>実際の使い方を見てみる</p>
           </a>
@@ -23,16 +24,6 @@ export default function Home() {
 
         <GoogleLoginProvider />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Created by dak2
-        </a>
-      </footer>
     </div>
   );
 }
