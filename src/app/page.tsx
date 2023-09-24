@@ -23,7 +23,9 @@ const mainCss = css({
 const titleCss = css({
   margin: 0,
   lineHeight: 1.15,
-  fontSize: '4rem',
+  fontWeight: 'bold',
+  letterSpacing: '0.13em',
+  fontSize: '4.5rem',
 });
 
 const descriptionCss = css({
@@ -75,18 +77,18 @@ export default function Home() {
   return (
     <div className={containerCss}>
       <main className={mainCss}>
-        <h1 className={titleCss}>shortcut master</h1>
+        <h1 className={titleCss}>SHORTCUT MASTER</h1>
 
         <p className={descriptionCss}>ショートカットをマスターしよう</p>
 
         <div className={gridCss}>
           <a href="https://nextjs.org/docs" className={cardCss}>
-            <h2>Shortcut master ? &rarr;</h2>
+            <h2>shortcut master ? &rarr;</h2>
             <p>このアプリについての説明</p>
           </a>
 
           <a href="https://github.com/vercel/next.js/tree/master/examples" className={cardCss}>
-            <h2>Examples &rarr;</h2>
+            <h2>examples &rarr;</h2>
             <p>実際の使い方を見てみる</p>
           </a>
         </div>
