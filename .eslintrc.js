@@ -61,7 +61,7 @@ module.exports = {
     ],
     overrides: [
       {
-        files: ['../../styled-system/*'],
+        files: ['**/styled-system/*'],
         rules: {
           'no-restricted-imports': 'off',
         },
