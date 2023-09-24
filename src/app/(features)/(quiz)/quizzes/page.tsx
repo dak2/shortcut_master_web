@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Quizzes from 'app/(features)/(quiz)/quizzes/quizzes';
+import Quizzes from 'app/(features)/(quiz)/components/quizzes';
 
 // entry point of quizzes
 export default async function Page() {
