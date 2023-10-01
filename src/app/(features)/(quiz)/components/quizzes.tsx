@@ -7,6 +7,7 @@ import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
 import { flex } from '../../../../../styled-system/patterns/flex';
 import { css } from '../../../../../styled-system/css';
+import GenericIcon from 'app/components/Elements/GenericIcon';
 import Link from 'next/link';
 
 const containerCss = flex({
@@ -87,6 +88,7 @@ export default function Quizzes() {
       {quizzes?.map((q) => {
         return (
           <Link href={`/quizzes/${q.name.toLowerCase()}`} className={quizContainerCss}>
+            <GenericIcon type={q.name.toLocaleLowerCase()} size={'large'} />
             {q.name}
           </Link>
         );
