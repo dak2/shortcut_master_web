@@ -12,15 +12,9 @@ const loginButtonCss = css({
   padding: '1rem 4rem',
   fontWeight: 'bold',
   borderRadius: '100vh',
-  borderBottom: '7px solid #D68910',
   background: '#F39C12',
   color: '#fff',
   cursor: 'pointer',
-  _hover: {
-    marginTop: '1px',
-    borderBottom: '1px solid #F39C12',
-    color: '#fff',
-  },
 });
 
 export default function LoginButton() {

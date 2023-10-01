@@ -31,5 +31,9 @@ export default function LogoutButton() {
     }
   };
 
-  return <button onClick={() => logout()}>Logout</button>;
+  return (
+    <button onClick={() => logout()}>
+      <p>ログアウト</p>
+    </button>
+  );
 }
