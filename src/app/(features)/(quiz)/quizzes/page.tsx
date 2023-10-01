@@ -1,30 +1,26 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useState, useContext, useEffect } from 'react';
-import Quizzes from 'app/(features)/(quiz)/quizzes/quizzes';
-import { UserContext } from 'app/providers/UserProvider';
-import { getCurrentUser } from 'app/utils/auth';
+import { Suspense } from 'react';
+import Quizzes from 'app/(features)/(quiz)/components/quizzes';
+import { css } from '../../../../../styled-system/css';
+
+const loadingTextCss = css({
+  textAlign: 'center',
+  marginTop: '15%',
+});
+
+const titleCss = css({
+  textAlign: 'center',
+  fontSize: '1.2rem',
+  marginTop: '2%',
+});
 
 // entry point of quizzes
-export default function Page() {
-  const { user } = useContext(UserContext);
-  const router = useRouter();
-  const currentUser = getCurrentUser(user);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!currentUser.name) {
-      router.push('/');
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  return loading ? (
-    <div>Loading...</div>
-  ) : (
+export default async function Page() {
+  return (
     <div>
-      <Quizzes />
+      <h2 className={titleCss}>クイズ一覧</h2>
+      <Suspense fallback={<p className={loadingTextCss}>Loading Quizzes...</p>}>
+        <Quizzes />
+      </Suspense>
     </div>
   );
 }

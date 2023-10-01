@@ -3,6 +3,19 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { User, UserContext } from 'app/providers/UserProvider';
+import { css } from '../../../../styled-system/css';
+
+const loginButtonCss = css({
+  textAlign: 'center',
+  verticalAlign: 'middle',
+  textDecoration: 'none',
+  padding: '1rem 4rem',
+  fontWeight: 'bold',
+  borderRadius: '100vh',
+  background: '#F39C12',
+  color: '#fff',
+  cursor: 'pointer',
+});
 
 export default function LoginButton() {
   const { setUser } = useContext(UserContext);
@@ -45,5 +58,9 @@ export default function LoginButton() {
     }
   };
 
-  return <button onClick={useLogin}>Login with Google</button>;
+  return (
+    <button onClick={useLogin} className={loginButtonCss}>
+      Login with Google
+    </button>
+  );
 }
