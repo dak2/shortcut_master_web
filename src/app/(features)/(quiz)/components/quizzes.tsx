@@ -87,7 +87,7 @@ export default function Quizzes() {
     <div className={containerCss}>
       {quizzes?.map((q) => {
         return (
-          <Link href={`/quizzes/${q.name.toLowerCase()}`} className={quizContainerCss}>
+          <Link key={`quiz-${q.id}`} href={`/quizzes/${q.name.toLowerCase()}`} className={quizContainerCss}>
             <GenericIcon type={q.name.toLocaleLowerCase()} size={'large'} />
             {q.name}
           </Link>
