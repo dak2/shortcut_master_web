@@ -4,7 +4,7 @@ import { cva } from '../../../../styled-system/css';
 
 type IconProps = {
   type: string;
-  size: 'small' | 'medium' | 'large';
+  size: 'small' | 'medium' | 'large' | 'xlarge';
 };
 
 type IconList = {
@@ -25,6 +25,7 @@ const iconSizeRecipe = cva({
       small: { fontSize: '1.5rem' },
       medium: { fontSize: '2rem' },
       large: { fontSize: '3rem' },
+      xlarge: { fontSize: '5rem' },
     },
   },
 });

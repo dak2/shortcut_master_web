@@ -5,6 +5,7 @@ import { css } from '../../../../../styled-system/css';
 const loadingTextCss = css({
   textAlign: 'center',
   marginTop: '15%',
+  fontSize: '2rem',
 });
 
 const titleCss = css({
@@ -18,7 +19,7 @@ export default async function Page() {
   return (
     <div>
       <h2 className={titleCss}>クイズを選ぶ</h2>
-      <Suspense fallback={<p className={loadingTextCss}>Loading Quizzes...</p>}>
+      <Suspense fallback={<p className={loadingTextCss}>Loading...</p>}>
         <Quizzes />
       </Suspense>
     </div>
