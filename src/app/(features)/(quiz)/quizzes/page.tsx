@@ -17,7 +17,7 @@ const titleCss = css({
 export default async function Page() {
   return (
     <div>
-      <h2 className={titleCss}>クイズ一覧</h2>
+      <h2 className={titleCss}>クイズを選ぶ</h2>
       <Suspense fallback={<p className={loadingTextCss}>Loading Quizzes...</p>}>
         <Quizzes />
       </Suspense>
