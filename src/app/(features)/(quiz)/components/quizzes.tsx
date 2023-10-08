@@ -13,9 +13,9 @@ import Link from 'next/link';
 const containerCss = flex({
   justifyContent: 'space-around',
   flexWrap: 'wrap',
-  width: '50%',
+  width: '40%',
   marginTop: '5%',
-  marginLeft: '25%',
+  marginLeft: '30%',
 });
 
 const quizContainerCss = css({
