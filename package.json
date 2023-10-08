@@ -21,7 +21,7 @@
   "devDependencies": {
     "@pandacss/dev": "^0.15.1",
     "@types/node": "18.11.18",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.2.25",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "eslint": "^8.47.0",
