@@ -6,8 +6,8 @@ import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
 import Link from 'next/link';
 import GenericIcon from 'app/components/Elements/GenericIcon';
-import { flex } from '../../../../../styled-system/patterns/flex';
-import { css } from '../../../../../styled-system/css';
+import { flex } from '../../../../../../styled-system/patterns/flex';
+import { css } from '../../../../../../styled-system/css';
 
 type Props = {
   type: string;
@@ -72,7 +72,7 @@ export default function QuizContainer(props: Props) {
         <p>クイズの種類: {type}</p>
         <p>クイズの問題数: 10</p>
       </div>
-      <Link href={`${type}/questions/1`} className={startButtonCss}>
+      <Link href={`${type}/questions/${1}`} className={startButtonCss}>
         <p>スタート</p>
       </Link>
     </div>

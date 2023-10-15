@@ -1,4 +1,4 @@
-import QuizContainer from 'app/(features)/(quiz)/components/quizContainer';
+import QuestionContainer from 'app/(features)/(quiz)/components/question/questionContainer';
 import { Suspense } from 'react';
 import { css } from '../../../../../../styled-system/css/css';
 
@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { type: string } }) {
   return (
     <div>
       <Suspense fallback={<p className={loadingTextCss}>Loading...</p>}>
-        <QuizContainer type={params.type || ''} />
+        <QuestionContainer type={params.type || ''} />
       </Suspense>
     </div>
   );

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Quizzes from 'app/(features)/(quiz)/components/quizzes';
+import Quizzes from 'app/(features)/(quiz)/components/quiz/quizzes';
 import { css } from '../../../../../styled-system/css';
 
 const loadingTextCss = css({

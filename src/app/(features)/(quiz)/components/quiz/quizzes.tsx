@@ -2,11 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useContext, useEffect } from 'react';
-import { Quiz } from 'app/(features)/(quiz)/Quiz';
+import { Quiz } from 'app/(features)/(quiz)/entity/Quiz';
 import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
-import { flex } from '../../../../../styled-system/patterns/flex';
-import { css, cva } from '../../../../../styled-system/css';
+import { flex } from '../../../../../../styled-system/patterns/flex';
+import { css, cva } from '../../../../../../styled-system/css';
 import GenericIcon from 'app/components/Elements/GenericIcon';
 import Link from 'next/link';
 
