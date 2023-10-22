@@ -2,6 +2,7 @@
 import { UserProvider } from 'app/providers/UserProvider';
 import { DotGothic16 } from 'next/font/google';
 import 'styles/globals.css';
+import { QuestionProvider } from 'app/providers/QuestionContext';
 
 const font = DotGothic16({
   weight: ['400'],
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={font.className}>
       <body>
-        <UserProvider>{children}</UserProvider>
+        <UserProvider>
+          <QuestionProvider>{children}</QuestionProvider>
+        </UserProvider>
       </body>
     </html>
   );

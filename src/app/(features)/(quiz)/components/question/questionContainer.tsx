@@ -8,9 +8,11 @@ import Link from 'next/link';
 import GenericIcon from 'app/components/Elements/GenericIcon';
 import { flex } from '../../../../../../styled-system/patterns/flex';
 import { css } from '../../../../../../styled-system/css';
+import { QuestionContext } from 'app/providers/QuestionContext';
+import { QuizNames } from 'app/entity/Quiz';
 
 type Props = {
-  type: string;
+  type: QuizNames;
 };
 
 const quizInfoContainerCss = flex({
@@ -50,8 +52,9 @@ const textContainerStyle = css({
   },
 });
 
-export default function QuizContainer(props: Props) {
+export default function QuestionContainer(props: Props) {
   const { user } = useContext(UserContext);
+  const { setType } = useContext(QuestionContext);
   const router = useRouter();
   const currentUser = getCurrentUser(user);
   const handleUserRedirect = () => {
@@ -61,6 +64,7 @@ export default function QuizContainer(props: Props) {
 
   useEffect(() => {
     handleUserRedirect();
+    setType(type);
   }, []);
 
   return (
