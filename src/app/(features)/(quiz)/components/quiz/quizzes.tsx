@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useContext, useEffect } from 'react';
-import { Quiz } from 'app/(features)/(quiz)/entity/Quiz';
+import { Quiz } from 'app/entity/Quiz';
 import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
 import { flex } from '../../../../../../styled-system/patterns/flex';
