@@ -40,6 +40,7 @@ const pageLinkCss = css({
 
 const questionComponent = (router: AppRouterInstance, question?: Question) => {
   if (question && question?.id <= MAX_QUESTION_SIZE) {
+    // TODO: 回答結果ページへの遷移を対応
     const nextPageLink = question?.id === MAX_QUESTION_SIZE ? 'results' : question?.id + 1;
     const nextPageText = question?.id === MAX_QUESTION_SIZE ? '回答結果を確認する' : '次の質問へ';
     return (
