@@ -4,3 +4,5 @@ export type Question = {
   quiz_id: number;
   contents: string;
 };
+
+export const MAX_QUESTION_SIZE = 10;
