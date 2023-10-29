@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { UserContext } from 'app/providers/UserProvider';
+import { css } from '../../../../styled-system/css';
 
 export default function LogoutButton() {
   const { setUser } = useContext(UserContext);
@@ -32,7 +33,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <button onClick={() => logout()}>
+    <button className={css({ cursor: 'pointer' })} onClick={() => logout()}>
       <p>ログアウト</p>
     </button>
   );

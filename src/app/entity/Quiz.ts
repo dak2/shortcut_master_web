@@ -4,6 +4,6 @@ export type Quiz = {
   type: QuizTypes;
 };
 
-type QuizNames = 'Slack' | 'VSCode' | 'Chrome' | 'GitHub';
+export type QuizNames = 'Slack' | 'VSCode' | 'Chrome' | 'GitHub';
 
 type QuizTypes = 'macOS' | 'Windows';
