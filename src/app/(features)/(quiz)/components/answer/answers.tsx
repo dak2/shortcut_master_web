@@ -1,9 +1,11 @@
 'use client';
 
-import { answerChoices } from 'app/entity/Answer';
+import { AnsweredContents, answerChoices } from 'app/entity/Answer';
 import { QuizNames } from 'app/entity/Quiz';
 import { css } from '../../../../../../styled-system/css';
 import { flex } from '../../../../../../styled-system/patterns/flex';
+import { useContext } from 'react';
+import { QuestionContext } from 'app/providers/QuestionProvider';
 
 const containerCss = flex({
   justifyContent: 'space-around',
@@ -40,13 +42,22 @@ const answerBoxCss = css({
 });
 
 export default function Answers(type: QuizNames, questionId: number) {
+  const { answers, setAnswers } = useContext(QuestionContext);
+  const handleAnswer = (currentAnswer: string) => {
+    if (setAnswers) {
+      setAnswers((prev: AnsweredContents) => {
+        return { ...prev, [type]: { ...prev[type], [questionId]: currentAnswer } };
+      });
+    }
+  };
+
   return (
     <div className={containerCss}>
       {answerChoices[type][questionId].map((answer, index) => {
         return (
-          <div key={`answer-${index}`} className={answerBoxCss}>
+          <button key={`answer-${index}`} className={answerBoxCss} onClick={() => handleAnswer(answer)}>
             {answer}
-          </div>
+          </button>
         );
       })}
     </div>

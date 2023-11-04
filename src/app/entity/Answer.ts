@@ -1,8 +1,14 @@
 import { QuizNames } from 'app/entity/Quiz';
 
 export type Answer = {
-  question_id: number;
+  questionId: number;
   contents: string;
+};
+
+export type AnsweredContents = {
+  [key in QuizNames]: {
+    [key in number]: string;
+  };
 };
 
 export const answerChoices: { [key in QuizNames]: { [key: number]: string[] } } = {
