@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { css } from '../../../../../../../../../styled-system/css';
 import { MAX_QUESTION_SIZE, Question } from 'app/entity/Question';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
+import Answers from 'app/(features)/(quiz)/components/answer/answers';
+import { QuizNames } from 'app/entity/Quiz';
 
 const loadingTextCss = css({
   textAlign: 'center',
@@ -25,6 +27,11 @@ const questionTitleCss = css({
   fontSize: '2rem',
 });
 
+const questionSelectTextCss = css({
+  marginTop: '2%',
+  fontSize: '1.5rem',
+});
+
 const pageLinkCss = css({
   marginTop: '10%',
   textAlign: 'center',
@@ -38,11 +45,12 @@ const pageLinkCss = css({
   cursor: 'pointer',
 });
 
-const questionComponent = (router: AppRouterInstance, question?: Question) => {
+const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?: Question) => {
   if (question && question?.id <= MAX_QUESTION_SIZE) {
     // TODO: 回答結果ページへの遷移を対応
     const nextPageLink = question?.id === MAX_QUESTION_SIZE ? 'results' : question?.id + 1;
     const nextPageText = question?.id === MAX_QUESTION_SIZE ? '回答結果を確認する' : '次の質問へ';
+    console.log('type', type);
     return (
       <div className={containerCss}>
         <div>
@@ -50,7 +58,8 @@ const questionComponent = (router: AppRouterInstance, question?: Question) => {
             Q{question?.id}: {question?.contents}
           </h1>
         </div>
-        <p>入力してください</p>
+        <h2 className={questionSelectTextCss}>選択してください</h2>
+        {Answers(type)}
         <Link href={`${nextPageLink}`} className={pageLinkCss}>
           <p>{nextPageText}</p>
         </Link>
@@ -69,7 +78,7 @@ const questionComponent = (router: AppRouterInstance, question?: Question) => {
   );
 };
 
-export default function Page({ params }: { params: { type: string; id: number } }) {
+export default function Page({ params }: { params: { type: QuizNames; id: number } }) {
   const questionId = Number(params.id);
   const { user } = useContext(UserContext);
   const { questions } = useContext(QuestionContext);
@@ -88,7 +97,7 @@ export default function Page({ params }: { params: { type: string; id: number } 
 
   return (
     <Suspense fallback={<p className={loadingTextCss}>Loading...</p>}>
-      {questionComponent(router, currentQuestion)}
+      {QuestionComponent(router, params.type, currentQuestion)}
     </Suspense>
   );
 }

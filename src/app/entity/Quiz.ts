@@ -1,9 +1,11 @@
 export type Quiz = {
   id: number;
-  name: QuizNames;
+  name: QuizNamesUpperCase;
   type: QuizTypes;
 };
 
-export type QuizNames = 'Slack' | 'VSCode' | 'Chrome' | 'GitHub';
+type QuizNamesUpperCase = 'Slack' | 'VSCode' | 'Chrome' | 'GitHub';
+
+export type QuizNames = 'slack' | 'vscode' | 'chrome' | 'github';
 
 type QuizTypes = 'macOS' | 'Windows';

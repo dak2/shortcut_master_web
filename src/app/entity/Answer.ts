@@ -3,8 +3,8 @@ export type Answer = {
   contents: string;
 };
 
-const answerChoices = {
-  Slack: {
+export const answerChoices = {
+  slack: {
     1: ['⌘+Z', '⌘+X', '⌘+C', '⌘+V'],
     2: ['⌘+G', '⌘+F', '⌘+E', '⌘+D'],
     3: ['⌘+K', '⌘+L', '⌘+M', '⌘+N'],
@@ -15,5 +15,14 @@ const answerChoices = {
     8: ['Option+Click', 'Shift+Click', 'Command+Click', 'Control+Click'],
     9: ['⌘+Shift+A', '⌘+Shift+S', '⌘+Shift+D', '⌘+Shift+F'],
     10: ['⌘+Shift+T', '⌘+Shift+Y', '⌘+Shift+U', '⌘+Shift+I'],
+  },
+  vscode: {
+    // TODO: implement
+  },
+  chrome: {
+    // TODO: implement
+  },
+  github: {
+    // TODO: implement
   },
 };
