@@ -6,6 +6,7 @@ import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
 import Link from 'next/link';
 import { css } from '../../../../../../../../../styled-system/css';
+import { cva } from '../../../../../../../../../styled-system/css/cva';
 import { MAX_QUESTION_SIZE, Question } from 'app/entity/Question';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import Answers from 'app/(features)/(quiz)/components/answer/answers';
@@ -20,7 +21,7 @@ const loadingTextCss = css({
 const containerCss = css({
   display: 'grid',
   placeItems: 'center',
-  marginTop: '10%',
+  marginTop: '3%',
 });
 
 const questionTitleCss = css({
@@ -28,21 +29,28 @@ const questionTitleCss = css({
 });
 
 const questionSelectTextCss = css({
-  marginTop: '2%',
+  marginTop: '1%',
+  marginBottom: '2%',
   fontSize: '1.5rem',
 });
 
-const pageLinkCss = css({
-  marginTop: '10%',
-  textAlign: 'center',
-  verticalAlign: 'middle',
-  textDecoration: 'none',
-  padding: '1rem 4rem',
-  fontWeight: 'bold',
-  borderRadius: '100vh',
-  background: '#F39C12',
-  color: '#fff',
-  cursor: 'pointer',
+const pageLinkCss = cva({
+  base: {
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    textDecoration: 'none',
+    padding: '1rem 4rem',
+    fontWeight: 'bold',
+    borderRadius: '100vh',
+    background: '#F39C12',
+    color: '#fff',
+    cursor: 'pointer',
+  },
+  variants: {
+    pageState: {
+      invalid: { marginTop: '5%' },
+    },
+  },
 });
 
 const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?: Question) => {
@@ -50,7 +58,6 @@ const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?
     // TODO: 回答結果ページへの遷移を対応
     const nextPageLink = question?.id === MAX_QUESTION_SIZE ? 'results' : question?.id + 1;
     const nextPageText = question?.id === MAX_QUESTION_SIZE ? '回答結果を確認する' : '次の質問へ';
-    console.log('type', type);
     return (
       <div className={containerCss}>
         <div>
@@ -59,8 +66,8 @@ const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?
           </h1>
         </div>
         <h2 className={questionSelectTextCss}>選択してください</h2>
-        {Answers(type)}
-        <Link href={`${nextPageLink}`} className={pageLinkCss}>
+        {Answers(type, question.id)}
+        <Link href={`${nextPageLink}`} className={pageLinkCss()}>
           <p>{nextPageText}</p>
         </Link>
       </div>
@@ -71,7 +78,7 @@ const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?
       <div>
         <h1 className={questionTitleCss}>無効な質問ページです</h1>
       </div>
-      <button type="button" onClick={() => router.back()} className={pageLinkCss}>
+      <button type="button" onClick={() => router.back()} className={pageLinkCss({ pageState: 'invalid' })}>
         前のページに戻る
       </button>
     </div>
