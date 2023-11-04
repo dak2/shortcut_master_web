@@ -5,14 +5,14 @@ import { fetchQuestions } from 'app/utils/fetch';
 import React, { createContext, useState, SetStateAction, Dispatch, useEffect } from 'react';
 
 type QuestionContextType = {
-  type: string;
+  type: QuizNames;
   setType: React.Dispatch<React.SetStateAction<QuizNames>>;
   questions: Question[];
   setQuestions: Dispatch<SetStateAction<Question[]>>;
 };
 
-const defaultQuestionContext = {
-  type: '',
+const defaultQuestionContext: QuestionContextType = {
+  type: 'slack',
   setType: () => {},
   questions: [],
   setQuestions: () => {},
@@ -21,7 +21,7 @@ const defaultQuestionContext = {
 const QuestionContext = createContext<QuestionContextType>(defaultQuestionContext);
 
 function QuestionProvider({ children }: { children: React.ReactNode }) {
-  const [type, setType] = useState<QuizNames>('Slack');
+  const [type, setType] = useState<QuizNames>('slack');
   const [questions, setQuestions] = useState<Question[]>(defaultQuestionContext.questions);
 
   useEffect(() => {

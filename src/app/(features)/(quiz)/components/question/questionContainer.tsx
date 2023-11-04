@@ -8,7 +8,7 @@ import Link from 'next/link';
 import GenericIcon from 'app/components/Elements/GenericIcon';
 import { flex } from '../../../../../../styled-system/patterns/flex';
 import { css } from '../../../../../../styled-system/css';
-import { QuestionContext } from 'app/providers/QuestionContext';
+import { QuestionContext } from 'app/providers/QuestionProvider';
 import { QuizNames } from 'app/entity/Quiz';
 
 type Props = {

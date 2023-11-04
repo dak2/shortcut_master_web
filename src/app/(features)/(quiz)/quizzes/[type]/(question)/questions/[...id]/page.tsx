@@ -1,5 +1,5 @@
 'use client';
-import { QuestionContext } from 'app/providers/QuestionContext';
+import { QuestionContext } from 'app/providers/QuestionProvider';
 import { Suspense, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserContext } from 'app/providers/UserProvider';
