@@ -2,7 +2,7 @@
 
 import { AnsweredContents, answerChoices } from 'app/entity/Answer';
 import { QuizNames } from 'app/entity/Quiz';
-import { css } from '../../../../../../styled-system/css';
+import { cva } from '../../../../../../styled-system/css/cva';
 import { flex } from '../../../../../../styled-system/patterns/flex';
 import { useContext } from 'react';
 import { QuestionContext } from 'app/providers/QuestionProvider';
@@ -13,36 +13,47 @@ const containerCss = flex({
   width: '50%',
 });
 
-const answerBoxCss = css({
-  width: '20rem',
-  marginBottom: '5%',
-  padding: '4rem',
-  color: 'inherit',
-  textDecoration: 'none',
-  border: '1px solid #eaeaea',
-  display: 'grid',
-  placeItems: 'center',
-  whiteSpace: 'wrap',
-  transition: 'color 0.15s ease, border-color 0.15s ease',
-  borderRadius: '45px',
-  cursor: 'pointer',
-  fontSize: '1.3rem',
-  _hover: {
-    color: '#0070f3',
-    borderColor: '#0070f3',
+const answerBoxRecipe = cva({
+  base: {
+    width: '20rem',
+    marginBottom: '5%',
+    padding: '4rem',
+    color: 'inherit',
+    textDecoration: 'none',
+    border: '1px solid #eaeaea',
+    display: 'grid',
+    placeItems: 'center',
+    whiteSpace: 'wrap',
+    transition: 'color 0.15s ease, border-color 0.15s ease',
+    borderRadius: '45px',
+    cursor: 'pointer',
+    fontSize: '1.3rem',
+    _hover: {
+      color: '#0070f3',
+      borderColor: '#0070f3',
+    },
+    _focus: {
+      color: '#0070f3',
+      borderColor: '#0070f3',
+    },
+    _active: {
+      color: '#0070f3',
+      borderColor: '#0070f3',
+    },
   },
-  _focus: {
-    color: '#0070f3',
-    borderColor: '#0070f3',
-  },
-  _active: {
-    color: '#0070f3',
-    borderColor: '#0070f3',
+  variants: {
+    answerState: {
+      selected: {
+        color: '#0070f3',
+        border: '1px solid #0070f3',
+      },
+    },
   },
 });
 
-export default function Answers(type: QuizNames, questionId: number) {
-  const { setAnswers } = useContext(QuestionContext);
+export default function Answers({ type, questionId }: { type: QuizNames; questionId: number }) {
+  const { answers, setAnswers } = useContext(QuestionContext);
+  const currentAnswer = answers[type][questionId];
   const handleAnswer = (currentAnswer: string) => {
     if (setAnswers) {
       setAnswers((prev: AnsweredContents) => {
@@ -54,8 +65,13 @@ export default function Answers(type: QuizNames, questionId: number) {
   return (
     <div className={containerCss}>
       {answerChoices[type][questionId].map((answer, index) => {
+        const isSelected = currentAnswer === answer;
         return (
-          <button key={`answer-${index}`} className={answerBoxCss} onClick={() => handleAnswer(answer)}>
+          <button
+            key={`answer-${index}`}
+            className={answerBoxRecipe(isSelected ? { answerState: 'selected' } : {})}
+            onClick={() => handleAnswer(answer)}
+          >
             {answer}
           </button>
         );

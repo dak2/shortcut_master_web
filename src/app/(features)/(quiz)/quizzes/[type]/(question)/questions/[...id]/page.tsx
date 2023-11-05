@@ -87,7 +87,7 @@ const QuestionComponent = (
           </h1>
         </div>
         <h2 className={questionSelectTextCss}>選択してください</h2>
-        {Answers(type, question.id)}
+        <Answers type={type} questionId={question?.id} />
         <Link href={`${nextPageLink}`} className={pageLinkCss()} onClick={(e) => handleLink(e, currentAnsweredContent)}>
           <p>{nextPageText}</p>
         </Link>
