@@ -2,7 +2,7 @@
 import { UserProvider } from 'app/providers/UserProvider';
 import { DotGothic16 } from 'next/font/google';
 import 'styles/globals.css';
-import { QuestionProvider } from 'app/providers/QuestionContext';
+import { QuestionProvider } from 'app/providers/QuestionProvider';
 
 const font = DotGothic16({
   weight: ['400'],

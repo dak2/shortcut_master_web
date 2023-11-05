@@ -4,25 +4,31 @@ import { QuizNames } from 'app/entity/Quiz';
 import { fetchQuestions } from 'app/utils/fetch';
 import React, { createContext, useState, SetStateAction, Dispatch, useEffect } from 'react';
 
+import { AnsweredContents } from 'app/entity/Answer';
 type QuestionContextType = {
-  type: string;
+  type: QuizNames;
   setType: React.Dispatch<React.SetStateAction<QuizNames>>;
   questions: Question[];
   setQuestions: Dispatch<SetStateAction<Question[]>>;
+  answers: AnsweredContents;
+  setAnswers?: Dispatch<SetStateAction<AnsweredContents>>;
 };
 
-const defaultQuestionContext = {
-  type: '',
+const defaultQuestionContext: QuestionContextType = {
+  type: 'slack',
   setType: () => {},
   questions: [],
   setQuestions: () => {},
+  answers: { slack: [], vscode: [], chrome: [], github: [] },
+  setAnswers: () => {},
 };
 
 const QuestionContext = createContext<QuestionContextType>(defaultQuestionContext);
 
 function QuestionProvider({ children }: { children: React.ReactNode }) {
-  const [type, setType] = useState<QuizNames>('Slack');
+  const [type, setType] = useState<QuizNames>('slack');
   const [questions, setQuestions] = useState<Question[]>(defaultQuestionContext.questions);
+  const [answers, setAnswers] = useState<AnsweredContents>(defaultQuestionContext.answers);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +38,9 @@ function QuestionProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <QuestionContext.Provider value={{ type, setType, questions, setQuestions }}>{children}</QuestionContext.Provider>
+    <QuestionContext.Provider value={{ type, setType, questions, setQuestions, answers, setAnswers }}>
+      {children}
+    </QuestionContext.Provider>
   );
 }
 
