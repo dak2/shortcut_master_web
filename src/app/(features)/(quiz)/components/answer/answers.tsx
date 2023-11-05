@@ -42,7 +42,7 @@ const answerBoxCss = css({
 });
 
 export default function Answers(type: QuizNames, questionId: number) {
-  const { answers, setAnswers } = useContext(QuestionContext);
+  const { setAnswers } = useContext(QuestionContext);
   const handleAnswer = (currentAnswer: string) => {
     if (setAnswers) {
       setAnswers((prev: AnsweredContents) => {

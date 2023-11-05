@@ -11,6 +11,8 @@ import { MAX_QUESTION_SIZE, Question } from 'app/entity/Question';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import Answers from 'app/(features)/(quiz)/components/answer/answers';
 import { QuizNames } from 'app/entity/Quiz';
+import { AnsweredContents } from 'app/entity/Answer';
+import toast, { Toaster } from 'react-hot-toast';
 
 const loadingTextCss = css({
   textAlign: 'center',
@@ -53,11 +55,30 @@ const pageLinkCss = cva({
   },
 });
 
-const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?: Question) => {
+const handleLink = (event: React.MouseEvent<HTMLAnchorElement>, answeredContent?: string) => {
+  if (!answeredContent) {
+    event.preventDefault();
+    toast.error('解答を選択してください', {
+      style: {
+        border: '1px solid #713200',
+        padding: '16px',
+        color: '#713200',
+      },
+    });
+  }
+};
+
+const QuestionComponent = (
+  router: AppRouterInstance,
+  type: QuizNames,
+  answers: AnsweredContents,
+  question?: Question,
+) => {
   if (question && question?.id <= MAX_QUESTION_SIZE) {
     // TODO: 回答結果ページへの遷移を対応
     const nextPageLink = question?.id === MAX_QUESTION_SIZE ? 'results' : question?.id + 1;
     const nextPageText = question?.id === MAX_QUESTION_SIZE ? '回答結果を確認する' : '次の質問へ';
+    const currentAnsweredContent = answers[type][question?.id];
     return (
       <div className={containerCss}>
         <div>
@@ -67,7 +88,7 @@ const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?
         </div>
         <h2 className={questionSelectTextCss}>選択してください</h2>
         {Answers(type, question.id)}
-        <Link href={`${nextPageLink}`} className={pageLinkCss()}>
+        <Link href={`${nextPageLink}`} className={pageLinkCss()} onClick={(e) => handleLink(e, currentAnsweredContent)}>
           <p>{nextPageText}</p>
         </Link>
       </div>
@@ -86,6 +107,7 @@ const QuestionComponent = (router: AppRouterInstance, type: QuizNames, question?
 };
 
 export default function Page({ params }: { params: { type: QuizNames; id: number } }) {
+  const { answers } = useContext(QuestionContext);
   const questionId = Number(params.id);
   const { user } = useContext(UserContext);
   const { questions } = useContext(QuestionContext);
@@ -104,7 +126,8 @@ export default function Page({ params }: { params: { type: QuizNames; id: number
 
   return (
     <Suspense fallback={<p className={loadingTextCss}>Loading...</p>}>
-      {QuestionComponent(router, params.type, currentQuestion)}
+      <Toaster position="top-center" reverseOrder={false} />
+      {QuestionComponent(router, params.type, answers, currentQuestion)}
     </Suspense>
   );
 }
