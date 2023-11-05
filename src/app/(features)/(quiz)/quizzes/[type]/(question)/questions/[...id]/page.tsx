@@ -55,29 +55,58 @@ const pageLinkCss = cva({
   },
 });
 
-const handleLink = (event: React.MouseEvent<HTMLAnchorElement>, answeredContent?: string) => {
-  if (!answeredContent) {
+const handleResultPage = (event: React.MouseEvent<HTMLAnchorElement>, answers: AnsweredContents, type: QuizNames) => {
+  const answerNumbersSet = new Set([...Array(MAX_QUESTION_SIZE).keys()].map((n) => n + 1));
+  const answeredNumbersSet = new Set(Object.keys(answers[type]).map((n) => Number(n)));
+  const unansweredNumbersSet = new Set([...answerNumbersSet].filter((n) => !answeredNumbersSet.has(n)));
+  const unansweredNumbers = [...unansweredNumbersSet].sort((a, b) => a - b).map((n) => `Q${n}`);
+
+  if (unansweredNumbers.length > 0) {
     event.preventDefault();
-    toast.error('解答を選択してください', {
+    toast.error(`${unansweredNumbers.join()}の質問に回答してください。`, {
       style: {
         border: '1px solid #713200',
         padding: '16px',
         color: '#713200',
       },
     });
+    return;
   }
+};
+
+const handleLink = (
+  event: React.MouseEvent<HTMLAnchorElement>,
+  isLastQuestion: boolean,
+  answers: AnsweredContents,
+  type: QuizNames,
+  answeredContent?: string,
+) => {
+  if (!answeredContent) {
+    event.preventDefault();
+    toast.error('選択してください', {
+      style: {
+        border: '1px solid #713200',
+        padding: '16px',
+        color: '#713200',
+      },
+    });
+    return;
+  }
+
+  if (isLastQuestion) handleResultPage(event, answers, type);
 };
 
 const QuestionComponent = (
   router: AppRouterInstance,
   type: QuizNames,
   answers: AnsweredContents,
+  isLastQuestion: boolean,
   question?: Question,
 ) => {
   if (question && question?.id <= MAX_QUESTION_SIZE) {
     // TODO: 回答結果ページへの遷移を対応
-    const nextPageLink = question?.id === MAX_QUESTION_SIZE ? 'results' : question?.id + 1;
-    const nextPageText = question?.id === MAX_QUESTION_SIZE ? '回答結果を確認する' : '次の質問へ';
+    const nextPageLink = isLastQuestion ? 'results' : question?.id + 1;
+    const nextPageText = isLastQuestion ? '回答結果を確認する' : '次の質問へ';
     const currentAnsweredContent = answers[type][question?.id];
     return (
       <div className={containerCss}>
@@ -88,7 +117,11 @@ const QuestionComponent = (
         </div>
         <h2 className={questionSelectTextCss}>選択してください</h2>
         <Answers type={type} questionId={question?.id} />
-        <Link href={`${nextPageLink}`} className={pageLinkCss()} onClick={(e) => handleLink(e, currentAnsweredContent)}>
+        <Link
+          href={`${nextPageLink}`}
+          className={pageLinkCss()}
+          onClick={(e) => handleLink(e, isLastQuestion, answers, type, currentAnsweredContent)}
+        >
           <p>{nextPageText}</p>
         </Link>
       </div>
@@ -107,11 +140,11 @@ const QuestionComponent = (
 };
 
 export default function Page({ params }: { params: { type: QuizNames; id: number } }) {
-  const { answers } = useContext(QuestionContext);
   const questionId = Number(params.id);
   const { user } = useContext(UserContext);
-  const { questions } = useContext(QuestionContext);
+  const { answers, questions } = useContext(QuestionContext);
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
+  const [isLastQuestion, setIsLastQuestion] = useState<boolean>(false);
   const router = useRouter();
   const currentUser = getCurrentUser(user);
   const handleUserRedirect = () => {
@@ -122,12 +155,13 @@ export default function Page({ params }: { params: { type: QuizNames; id: number
     handleUserRedirect();
     const initCurrentQuestion = questions.find((q) => q.id === questionId);
     setCurrentQuestion(initCurrentQuestion);
+    setIsLastQuestion(initCurrentQuestion?.id === MAX_QUESTION_SIZE);
   }, [questions, questionId]);
 
   return (
     <Suspense fallback={<p className={loadingTextCss}>Loading...</p>}>
       <Toaster position="top-center" reverseOrder={false} />
-      {QuestionComponent(router, params.type, answers, currentQuestion)}
+      {QuestionComponent(router, params.type, answers, isLastQuestion, currentQuestion)}
     </Suspense>
   );
 }

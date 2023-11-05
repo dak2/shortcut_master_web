@@ -6,6 +6,7 @@ import { cva } from '../../../../../../styled-system/css/cva';
 import { flex } from '../../../../../../styled-system/patterns/flex';
 import { useContext } from 'react';
 import { QuestionContext } from 'app/providers/QuestionProvider';
+import toast from 'react-hot-toast';
 
 const containerCss = flex({
   justifyContent: 'space-around',
@@ -55,6 +56,7 @@ export default function Answers({ type, questionId }: { type: QuizNames; questio
   const { answers, setAnswers } = useContext(QuestionContext);
   const currentAnswer = answers[type][questionId];
   const handleAnswer = (currentAnswer: string) => {
+    toast.dismiss();
     if (setAnswers) {
       setAnswers((prev: AnsweredContents) => {
         return { ...prev, [type]: { ...prev[type], [questionId]: currentAnswer } };
