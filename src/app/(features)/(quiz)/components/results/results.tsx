@@ -1,9 +1,15 @@
 'use client';
+import { AnsweredContents } from 'app/entity/Answer';
+import { AnswerHistory, AnsweredHistoryRequestBody } from 'app/entity/AnswerHistory';
 import { QuizNames } from 'app/entity/Quiz';
 import { QuestionContext } from 'app/providers/QuestionProvider';
-import { useContext, useEffect } from 'react';
+import { UserContext } from 'app/providers/UserProvider';
+import { getCurrentUser } from 'app/utils/auth';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
 
-const postAnswers = async (data: any) => {
+const postAnswers = async (data: AnsweredHistoryRequestBody) => {
+  console.log('JSON.stringify(data)', JSON.stringify(data));
   return await fetch('http://127.0.0.1:3000/answers', {
     method: 'POST',
     credentials: 'include',
@@ -14,14 +20,51 @@ const postAnswers = async (data: any) => {
   });
 };
 
-// TODO: ここで回答を送信する
+const mappingToAnswerHistoryRequestBody = (answers: AnsweredContents, type: QuizNames): AnsweredHistoryRequestBody => {
+  const answerHistoryRequestBody: AnsweredHistoryRequestBody = { quiz_type: type, answers: [] };
+  for (const [answerId, answerContent] of Object.entries(answers[type])) {
+    answerHistoryRequestBody.answers.push({ answer_id: Number(answerId), contents: answerContent.replace(/\s+/g, '') });
+  }
+  return answerHistoryRequestBody;
+};
+
 export default function Results(type: QuizNames) {
   const { answers } = useContext(QuestionContext);
-  const hasAnswered = Object.keys(answers[type]).length > 0;
+  const { user } = useContext(UserContext);
+  const currentUser = getCurrentUser(user);
+  const router = useRouter();
+  const [answerHistories, setAnswerHistories] = useState<AnswerHistory[]>([]);
+  const handleUserRedirect = () => {
+    if (!currentUser.name) router.push('/');
+  };
 
   useEffect(() => {
-    if (hasAnswered) {
-    }
+    handleUserRedirect();
+    void (async () => {
+      try {
+        const answerHistoryRequestBody = mappingToAnswerHistoryRequestBody(answers, type);
+        const response = await postAnswers(answerHistoryRequestBody);
+        if (response.ok) {
+          const data = await response.json();
+          setAnswerHistories(data);
+        } else {
+          throw new Error('Network response was not ok. Please check your credentials and try again');
+        }
+      } catch (error) {
+        throw new Error(`Failed to answer: ${error}. Please check your credentials and try again`);
+      }
+    })();
   }, []);
-  return <div>Results</div>;
+
+  return (
+    <div>
+      {answerHistories.map((ans) => {
+        return (
+          <div key={ans.answer_id}>
+            {ans.contents} : {ans.is_correct ? '○' : '×'}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
