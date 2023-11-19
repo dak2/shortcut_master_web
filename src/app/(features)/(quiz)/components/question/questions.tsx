@@ -122,6 +122,7 @@ export default function Questions(
           href={`${nextPageLink}`}
           className={pageLinkCss()}
           onClick={(e) => handleLink(e, isLastQuestion, answers, type, currentAnsweredContent)}
+          scroll={false}
         >
           <p>{nextPageText}</p>
         </Link>

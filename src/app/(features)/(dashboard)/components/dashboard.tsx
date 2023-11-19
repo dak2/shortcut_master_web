@@ -82,10 +82,10 @@ export default function Dashboard() {
 
   return (
     <div className={containerCss}>
-      <Link href="/quizzes" className={selectQuizContainerCss}>
+      <Link href="/quizzes" className={selectQuizContainerCss} scroll={false}>
         クイズを行う
       </Link>
-      <Link href="/analysis" className={selectQuizAnalysisContainerCss}>
+      <Link href="/analysis" className={selectQuizAnalysisContainerCss} scroll={false}>
         前回までのクイズ結果を確認する
       </Link>
     </div>
