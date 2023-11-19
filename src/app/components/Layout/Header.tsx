@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <header className={headerCss}>
       <div className={textContainerCss}>
-        <Link href="/">
+        <Link href="/" scroll={false}>
           <p className={textCss}>ショートカットマスター</p>
         </Link>
       </div>

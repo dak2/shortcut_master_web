@@ -19,7 +19,7 @@ const defaultQuestionContext: QuestionContextType = {
   setType: () => {},
   questions: [],
   setQuestions: () => {},
-  answers: { slack: [], vscode: [], chrome: [], github: [] },
+  answers: { slack: {}, vscode: {}, chrome: {}, github: {} },
   setAnswers: () => {},
 };
 

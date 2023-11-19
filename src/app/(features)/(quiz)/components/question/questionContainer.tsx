@@ -76,7 +76,7 @@ export default function QuestionContainer(props: Props) {
         <p>クイズの種類: {type}</p>
         <p>クイズの問題数: 10</p>
       </div>
-      <Link href={`${type}/questions/${1}`} className={startButtonCss}>
+      <Link href={`${type}/questions/${1}`} className={startButtonCss} scroll={false}>
         <p>スタート</p>
       </Link>
     </div>

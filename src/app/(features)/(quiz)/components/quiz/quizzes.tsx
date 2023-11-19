@@ -112,6 +112,7 @@ export default function Quizzes() {
             key={`quiz-${q.id}`}
             href={`/quizzes/${q.name.toLowerCase()}`}
             className={quizContainerRecipe(isUnavailable ? { availability: 'unavailable' } : {})}
+            scroll={false}
           >
             <GenericIcon type={q.name.toLocaleLowerCase()} size={'large'} />
             {q.name}
