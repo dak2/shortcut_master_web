@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 const postAnswers = async (data: AnsweredHistoryRequestBody) => {
-  console.log('JSON.stringify(data)', JSON.stringify(data));
   return await fetch('http://127.0.0.1:3000/answers', {
     method: 'POST',
     credentials: 'include',
@@ -17,6 +16,16 @@ const postAnswers = async (data: AnsweredHistoryRequestBody) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
+  });
+};
+
+const fetchAnswerHistories = async (type: string) => {
+  return await fetch(`http://127.0.0.1:3000/answer_histories?quiz_type=${type.toLowerCase()}`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 };
 
@@ -42,16 +51,26 @@ export default function Results(type: QuizNames) {
     handleUserRedirect();
     void (async () => {
       try {
-        const answerHistoryRequestBody = mappingToAnswerHistoryRequestBody(answers, type);
-        const response = await postAnswers(answerHistoryRequestBody);
-        if (response.ok) {
-          const data = await response.json();
-          setAnswerHistories(data);
+        if (Object.keys(answers[type]).length > 0) {
+          const answerHistoryRequestBody = mappingToAnswerHistoryRequestBody(answers, type);
+          const response = await postAnswers(answerHistoryRequestBody);
+          if (response.ok) {
+            const data = await response.json();
+            setAnswerHistories(data);
+          } else {
+            throw new Error('Network response was not ok. Please check your credentials and try again');
+          }
         } else {
-          throw new Error('Network response was not ok. Please check your credentials and try again');
+          const response = await fetchAnswerHistories(type);
+          if (response.ok) {
+            const data = await response.json();
+            setAnswerHistories(data);
+          } else {
+            throw new Error('Network response was not ok. Please check your credentials and try again');
+          }
         }
       } catch (error) {
-        throw new Error(`Failed to answer: ${error}. Please check your credentials and try again`);
+        throw new Error(`Failed to fetch: ${error}. Please try again`);
       }
     })();
   }, []);
