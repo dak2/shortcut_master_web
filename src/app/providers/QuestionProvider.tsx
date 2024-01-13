@@ -1,10 +1,10 @@
 'use client';
 import { Question } from 'app/entity/Question';
 import { QuizNames } from 'app/entity/Quiz';
-import { fetchQuestions } from 'app/utils/fetch';
 import React, { createContext, useState, SetStateAction, Dispatch, useEffect } from 'react';
 
 import { AnsweredContents } from 'app/entity/Answer';
+import { getFetch } from 'app/utils/fetch';
 type QuestionContextType = {
   type: QuizNames;
   setType: React.Dispatch<React.SetStateAction<QuizNames>>;
@@ -19,11 +19,15 @@ const defaultQuestionContext: QuestionContextType = {
   setType: () => {},
   questions: [],
   setQuestions: () => {},
-  answers: { slack: [], vscode: [], chrome: [], github: [] },
+  answers: { slack: {}, vscode: {}, chrome: {}, github: {} },
   setAnswers: () => {},
 };
 
 const QuestionContext = createContext<QuestionContextType>(defaultQuestionContext);
+
+const fetchQuestions = async (type: QuizNames) => {
+  return await getFetch<Question>('questions', { quiz_type: type });
+};
 
 function QuestionProvider({ children }: { children: React.ReactNode }) {
   const [type, setType] = useState<QuizNames>('slack');
