@@ -5,28 +5,16 @@ import { QuizNames } from 'app/entity/Quiz';
 import { QuestionContext } from 'app/providers/QuestionProvider';
 import { UserContext } from 'app/providers/UserProvider';
 import { getCurrentUser } from 'app/utils/auth';
+import { getFetch, postFetch } from 'app/utils/fetch';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 const postAnswers = async (data: AnsweredHistoryRequestBody) => {
-  return await fetch('http://127.0.0.1:3000/answers', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  return await postFetch<AnswerHistory>('answers', data);
 };
 
 const fetchAnswerHistories = async (type: string) => {
-  return await fetch(`http://127.0.0.1:3000/answer_histories?quiz_type=${type.toLowerCase()}`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  return await getFetch<AnswerHistory>('answer_histories', { quiz_type: type });
 };
 
 const mappingToAnswerHistoryRequestBody = (answers: AnsweredContents, type: QuizNames): AnsweredHistoryRequestBody => {
@@ -54,20 +42,10 @@ export default function Results(type: QuizNames) {
         if (Object.keys(answers[type]).length > 0) {
           const answerHistoryRequestBody = mappingToAnswerHistoryRequestBody(answers, type);
           const response = await postAnswers(answerHistoryRequestBody);
-          if (response.ok) {
-            const data = await response.json();
-            setAnswerHistories(data);
-          } else {
-            throw new Error('Network response was not ok. Please check your credentials and try again');
-          }
+          setAnswerHistories(response);
         } else {
           const response = await fetchAnswerHistories(type);
-          if (response.ok) {
-            const data = await response.json();
-            setAnswerHistories(data);
-          } else {
-            throw new Error('Network response was not ok. Please check your credentials and try again');
-          }
+          setAnswerHistories(response);
         }
       } catch (error) {
         throw new Error(`Failed to fetch: ${error}. Please try again`);

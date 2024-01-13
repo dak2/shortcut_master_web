@@ -9,6 +9,7 @@ import { flex } from '../../../../../../styled-system/patterns/flex';
 import { css, cva } from '../../../../../../styled-system/css';
 import GenericIcon from 'app/components/Elements/GenericIcon';
 import Link from 'next/link';
+import { getFetch } from 'app/utils/fetch';
 
 const containerCss = flex({
   justifyContent: 'space-around',
@@ -66,13 +67,7 @@ const comingSoonCss = css({
 });
 
 const fetchQuizzes = async () => {
-  return await fetch('http://127.0.0.1:3000/quizzes', {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  return await getFetch<Quiz>('quizzes');
 };
 
 export default function Quizzes() {
@@ -90,12 +85,7 @@ export default function Quizzes() {
     void (async () => {
       try {
         const response = await fetchQuizzes();
-        if (response.ok) {
-          const data = await response.json();
-          setQuizzes(data);
-        } else {
-          throw new Error('Network response was not ok. Please check your credentials and try again');
-        }
+        setQuizzes(response);
       } catch (error) {
         throw new Error(`Failed to login: ${error}. Please check your credentials and try again`);
       }
